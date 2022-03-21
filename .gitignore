@@ -412,3 +412,4 @@ x64/
 **/*.vcxproj.*
 **/*.i
 **/*.obj
+/backjoon/1874 - 스택수열.cpp
