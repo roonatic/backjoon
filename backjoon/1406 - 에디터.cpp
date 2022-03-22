@@ -6,6 +6,10 @@ using namespace std;
 
 int main()
 {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
 	string str;
 	int m;
 	cin >> str;
@@ -23,16 +27,6 @@ int main()
 		{
 			string add;
 			cin >> add;
-/*
-			if (cmd.empty())
-				cursor = str.size();
-			else
-			{
-				if (cmd.top() != 'L' && cmd.top() != 'D')
-					cursor = str.size();
-			}
-			*/
-			
 
 			str.insert(cursor, add);
 			cursor += 1;
@@ -43,18 +37,18 @@ int main()
 				continue;
 			else
 			{
-				str.erase(cursor-1,1);
+				str.erase(cursor - 1, 1);
 				cursor -= 1;
 			}
 		}
 		else if (edit == 'D')
 		{
-			if(cursor != str.size())
+			if (cursor != str.size())
 				cursor += 1;
 		}
 		else if (edit == 'L')
 		{
-			if(cursor != 0)
+			if (cursor != 0)
 				cursor -= 1;
 		}
 		//cout << str;
