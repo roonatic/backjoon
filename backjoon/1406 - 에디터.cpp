@@ -1,22 +1,19 @@
 #include <iostream>
-#include <vector>
-#include <stack>
+#include <list>
 #include <string>
 using namespace std;
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-
-	string str;
 	int m;
+	list<char> word;
+	string str;
 	cin >> str;
-	cin.ignore();
-	stack<char> cmd;
 
-	int cursor = str.size();
+	for (int i = 0; i < str.size(); i++)
+		word.push_back(str[i]);
+
+	auto cursor = word.end();
 
 	cin >> m;
 	while (m--)
@@ -25,35 +22,30 @@ int main()
 		cin >> edit;
 		if (edit == 'P')
 		{
-			string add;
+			char add;
 			cin >> add;
 
-			str.insert(cursor, add);
-			cursor += 1;
+			word.insert(cursor, add);
 		}
 		else if (edit == 'B')
 		{
-			if (cursor == 0)
-				continue;
-			else
-			{
-				str.erase(cursor - 1, 1);
-				cursor -= 1;
-			}
+			if (cursor != word.begin())
+				cursor = word.erase(--cursor);
 		}
 		else if (edit == 'D')
 		{
-			if (cursor != str.size())
-				cursor += 1;
+			if (cursor != word.end())
+				cursor++;
 		}
 		else if (edit == 'L')
 		{
-			if (cursor != 0)
-				cursor -= 1;
+			if (cursor != word.begin())
+				cursor --;
 		}
-		//cout << str;
-		cmd.push(edit);
 	}
 
-	cout << str;
+	for (cursor = word.begin(); cursor != word.end(); cursor++)
+		cout << *cursor;
+
+		
 }
