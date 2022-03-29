@@ -34,15 +34,12 @@ void test(string example)
 					t.pop();
 				else
 				{
-					cout << "no" << endl;
 					t.push('N');
 					break;
 				}
 			}
 			else
-			{
-				cout << "no" << endl;
-				t.push('N');
+			{				t.push('N');
 				break;
 			}
 
@@ -56,14 +53,12 @@ void test(string example)
 					t.pop();
 				else
 				{
-					cout << "no" << endl;
 					t.push('N');
 					break;
 				}
 			}
 			else
 			{
-				cout << "no" << endl;
 				t.push('N');
 				break;
 			}
@@ -72,4 +67,6 @@ void test(string example)
 
 	if (t.empty())
 		cout << "yes" << endl;
+	else
+		cout << "no" << endl;
 }
