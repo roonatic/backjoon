@@ -1,7 +1,6 @@
 #include <iostream>
 #include <deque>
 #include <string>
-#include <algorithm> // reverse 사용 위함
 using namespace std;
 
 int main()
@@ -10,6 +9,8 @@ int main()
 	cin >> t;
 	while (t--)
 	{
+		bool chk = true; //정방향인지 역방향인지 체크위함
+		bool err = false; //에러 체크용
 		deque<char> cmd; //명령어를 넣을 덱
 		deque<int> arr; //정수 배열 덱
 		string p; //명령어
@@ -30,55 +31,83 @@ int main()
 				tmpt += array[i];
 			else if (array[i] == ',' || array[i] == ']')
 			{
-				if (tmpt != "") //임시 string이 공백이 아니면
-				{
-					int temp = stoi(tmpt); //int형으로 변환
-					arr.push_back(temp); //배열에 삽입
-					tmpt = ""; //임시 string 초기화
-				}
-				else
+				if (tmpt == "") //아무것도 안 들어오면 빈 배열
 					break;
+				else
+				{
+					int temp = stoi(tmpt);
+					arr.push_back(temp);
+					tmpt = ""; //초기화
+				}
 			}
 		}
 
-		/*
-			입력받은 배열 사이즈와 덱의 크기가 맞지 않거나
-			입력받은 배열의 크기가 0일 때
-		*/
-		if (n != arr.size() || arr.empty()) 
-		{
-			cout << "error" << endl; //에러 호출
-			break;
-		}
+		if (n != arr.size() || (arr.empty() && cmd.front() == 'D'))
+			err = true;
 		else
 		{
-			while (!cmd.empty()) //명령어 덱이 빌 때까지 반복
+			while (!cmd.empty())
 			{
-				if (arr.empty() && !cmd.empty()) //명령어 배열은 비어있지 않은데 배열은 비어있으면
+				if (cmd.front() == 'R')//R이면 뒤집기 명령 수행
 				{
-					cout << "error" << endl; //에러 출력
-					break;
-				}
-				else if (cmd.front() == 'R') //명령어가 R이면 배열의 순서 뒤집기
-				{
-					reverse(arr.begin(), arr.end()); //reverse 사용
-					cmd.pop_front(); //명령어를 수행했으므로 수행한 명령어 배출
-				}
-				else if (cmd.front() == 'D') //명령어가 D면 front를 pop
-				{
-					arr.pop_front();
+					if (chk == true) //정방향이면
+						chk = false; //방향을 역으로 표시
+					else //역방향이면
+						chk = true; //정방향으로
+
 					cmd.pop_front();
 				}
+				else if (cmd.front() == 'D') //D면 맨 앞의 원소 삭제
+				{
+					if (arr.empty())//맨 앞 원소를 삭제해야하는데 앞이 비어있으면
+					{
+						err = true;
+						break;
+					}
+					else
+					{
+						if (chk == true) //정방향일 때
+						{
+							arr.pop_front();
+							cmd.pop_front();
+						}
+						else //역방향일 때
+						{
+							arr.pop_back();
+							cmd.pop_front();
+						}
+					}
+				}
 			}
+		}
 
-			for (int i = 0; i < arr.size(); i++) //출력
+		if (arr.empty() && cmd.empty()) //빈 배열일때
+			cout << "[]" << endl;
+		else if (err == true) //에러 출력
+			cout << "error" << endl;
+		else
+		{
+			if (chk == true) //정방향이면
 			{
-				if (i == 0)
-					cout << "[" << arr.at(i) << ",";
-				else if (arr.size() - 1 == i)
-					cout << arr.at(i) << "]" << endl;
-				else
-					cout << arr.at(i) << ",";
+				cout << "[";
+				for (int i = 0; i < arr.size(); i++)
+				{
+					if (i == arr.size()-1)
+						cout << arr.at(i) << "]" << endl;
+					else
+						cout << arr.at(i) << ",";
+				}
+			}
+			else //역순 출력
+			{
+				cout << "[";
+				for (int i = arr.size()-1; i >= 0; i--)
+				{
+					if (i == 0)
+						cout << arr.at(i) << "]" << endl;
+					else
+						cout << arr.at(i) << ",";
+				}
 			}
 		}
 	}
