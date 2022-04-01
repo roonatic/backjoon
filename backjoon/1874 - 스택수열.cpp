@@ -44,7 +44,7 @@ int main()
 	if (t == true)
 	{
 		for (int i = 0; i < cmd.size(); i++)
-			cout << cmd.at(i) << endl;
+			cout << cmd.at(i) << "\n";
 	}
 	else
 		cout << "NO";
