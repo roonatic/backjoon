@@ -12,36 +12,21 @@ int main()
 
 	cin >> n >> k;
 
-	while (n-- > 0)
-	{
-		queue<int> con;
-		for (int i = 1; i <= n; i++)
-			con.push(i);
+	queue<int> con;
+	for (int i = 1; i <= n; i++)
+		con.push(i);
 
-		if (k == con.front())
-		{
-			answer.push(con.front());
-			con.pop();
-			break;
-		}
-		else
-		{
-			int temp = con.front();
-			con.pop();
-			con.push(temp);
-		}
-	}
-
+	int cnt = n - 1;
 	cout << "<";
-	while (!answer.empty())
+	while (cnt--)
 	{
-		if (answer.size() == 1)
-			cout << answer.front() << ">";
-		else
-		{
-			cout << answer.front() << ", ";
-			answer.pop();
-		}
+			for (int i = 0; i < k - 1; i++)
+			{
+				con.push(con.front());
+				con.pop();
+			}
+			cout << con.front() << ", ";
+			con.pop();
 	}
-
+	cout << con.front() << ">";
 }
