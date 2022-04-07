@@ -28,10 +28,17 @@ int main()
 		}
 		else if ((str[i] >= 48 && str[i] <= 57) || (str[i] >= 97 && str[i] <= 122))
 		{	
-			while ((!(str[i] == 32)) || (!(str[i]) == 60))
+			while ((str[i] != 32) && (str[i] != 60))
 			{
+				if (i == str.size())
+					break;
+				/*else if (str[i] == 60 || str[i] == 32)
+					break;*/
+				else
+				{
 					r.push(str[i]);
 					i++;
+				}
 			}
 			while (!r.empty())
 			{
@@ -45,13 +52,6 @@ int main()
 				else
 					i--;
 			}
-		}
-		else if (str[i] == 32)
-		{
-			if (i != str.size())
-				cout << ' ';
-			else
-				break;
 		}
 	}
 }
