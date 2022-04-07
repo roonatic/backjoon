@@ -32,8 +32,6 @@ int main()
 			{
 				if (i == str.size())
 					break;
-				/*else if (str[i] == 60 || str[i] == 32)
-					break;*/
 				else
 				{
 					r.push(str[i]);
