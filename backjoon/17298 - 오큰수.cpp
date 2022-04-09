@@ -8,39 +8,31 @@ int main()
 	int n;
 	cin >> n;
 	
-	int* arr = new int[n];
 	int m;
-	for (int i = 1; i <= n; i++)
+
+	int* arr = new int[n];
+	stack<int> NGE;
+	for (int i = 0; i < n; i++)
 	{
 		cin >> m;
 		arr[i] = m;
 	}
 
-	for (int i = 1; i <= n; i++)
+	int* ans = new int[n];
+	for (int i = n - 1; i >= 0; i--)
 	{
-		stack<int> NGE;
-		int test = arr[i];
-		for (int j = i+1; j <= n; j++)
-		{
-			if (test >= arr[j])
-				continue;
-			else
-			{
-				NGE.push(arr[j]);
-				break;
-			}
-		}
-		
-		if (i != n)
-		{
-			if(!NGE.empty())
-				cout << NGE.top() << ' ';
-			else
-				cout << -1 << ' ';
-		}
+		while (!NGE.empty() && NGE.top() <= arr[i])
+			NGE.pop();
+	
+		if (NGE.empty())
+			ans[i] = -1;
 		else
-			cout << -1;
+			ans[i] = NGE.top();
 
-		
+		NGE.push(arr[i]);
 	}
+
+	for (int i = 0; i < n; i++)
+			cout << ans[i] << ' ';
+
 }
