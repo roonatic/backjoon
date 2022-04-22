@@ -19,17 +19,25 @@ int main()
 			postfix.push(s[i]);
 		else if (s[i] == 43 || s[i] == 45)
 		{
-			if (postfix.top() == 42 || postfix.top() == 47)
+			while(!postfix.empty() && postfix.top() != 40)
 			{
 				ans += postfix.top();
 				postfix.pop();
-				postfix.push(s[i]);
 			}
-			else
-				postfix.push(s[i]);
+			postfix.push(s[i]);
 		}
 		else if (s[i] == 42 || s[i] == 47)
-			postfix.push(s[i]);
+		{
+			if (postfix.empty() || postfix.top() == 43 || postfix.top() == 45)
+				postfix.push(s[i]);
+			else if(postfix.top() == 42 || postfix.top() == 47)
+			{
+				ans += s[i];
+				ans += postfix.top();
+				postfix.pop();
+			}
+
+		}
 		else if (s[i] == 41)
 		{
 			while (postfix.top() != 40)
