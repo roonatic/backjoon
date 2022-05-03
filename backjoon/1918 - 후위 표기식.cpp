@@ -13,30 +13,23 @@ int main()
 	
 	for (int i = 0; i < s.size(); i++)
 	{
-		if (s[i] >= 65 && s[i] <= 90) //¾ËÆÄºª
+		if (s[i] >= 65 && s[i] <= 90) //ì•ŒíŒŒë²³
 			ans += s[i];
 		else if (s[i] == 40) // (
 			postfix.push(s[i]);
-		else if (s[i] == 43 || s[i] == 45) //+ ¶Ç´Â -ÀÏ ¶§
+		else if (s[i] == 43 || s[i] == 45) //+ ë˜ëŠ” -ì¼ ë•Œ
 		{
-			while(!postfix.empty() && postfix.top() != 40) // )°¡ ¾Æ´Ï¸é
+			if(postfix.top() == 42 || postfix.top() == 47) // )ê°€ ì•„ë‹ˆë©´
 			{
+
 				ans += postfix.top();
 				postfix.pop();
 			}
 			postfix.push(s[i]);
 		}
-		else if (s[i] == 42 || s[i] == 47) // * ¶Ç´Â /ÀÏ ¶§
+		else if (s[i] == 42 || s[i] == 47) // * ë˜ëŠ” /ì¼ ë•Œ
 		{
-			if (postfix.empty() || postfix.top() == 43 || postfix.top() == 45)
-				postfix.push(s[i]);
-			else if(postfix.top() == 42 || postfix.top() == 47)
-			{
-				ans += s[i];
-				ans += postfix.top();
-				postfix.pop();
-			}
-
+		        postfix.push(s[i]);
 		}
 		else if (s[i] == 41)
 		{
@@ -62,11 +55,11 @@ int main()
 }
 
 /*
-¹Ý·Ê)
+ë°˜ë¡€)
 
 input: A+((B*C)*D)*E
 output: ABC*D*+E*
 answer: ABC*D*E*+
 
-&& || ¿ì¼±¼øÀ§ »ý°¢ÇØ¾ß
+&& || ìš°ì„ ìˆœìœ„ ìƒê°í•´ì•¼
 */
