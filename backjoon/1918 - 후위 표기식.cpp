@@ -62,7 +62,7 @@ int main()
 }
 
 /*
-¹Ý·Ê)
+¹Ý·Ê))
 
 input: A+((B*C)*D)*E
 output: ABC*D*+E*
