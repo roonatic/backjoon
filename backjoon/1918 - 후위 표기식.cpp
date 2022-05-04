@@ -10,7 +10,7 @@ int main()
 
 	stack<char> postfix;
 	string ans = "";
-	
+
 	for (int i = 0; i < s.size(); i++)
 	{
 		if (s[i] >= 65 && s[i] <= 90) //알파벳
@@ -19,17 +19,24 @@ int main()
 			postfix.push(s[i]);
 		else if (s[i] == 43 || s[i] == 45) //+ 또는 -일 때
 		{
-			if(postfix.top() == 42 || postfix.top() == 47) // )가 아니면
+			if (postfix.empty())
+				postfix.push(s[i]);
+			else if (postfix.top() == 42 || postfix.top() == 47)
 			{
-
-				ans += postfix.top();
+				char tmpt = postfix.top();
 				postfix.pop();
+				postfix.push(s[i]);
+				postfix.push(tmpt);
 			}
-			postfix.push(s[i]);
+			else
+				postfix.push(s[i]);
 		}
 		else if (s[i] == 42 || s[i] == 47) // * 또는 /일 때
 		{
-		        postfix.push(s[i]);
+			if (postfix.top() != 40)
+				ans += s[i];
+			else
+				postfix.push(s[i]);
 		}
 		else if (s[i] == 41)
 		{
@@ -50,12 +57,12 @@ int main()
 			}
 		}
 	}
-	
+
 	cout << ans;
 }
 
 /*
-반례)
+반례))
 
 input: A+((B*C)*D)*E
 output: ABC*D*+E*
