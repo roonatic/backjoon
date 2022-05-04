@@ -19,24 +19,24 @@ int main()
 			postfix.push(s[i]);
 		else if (s[i] == 43 || s[i] == 45) //+ 또는 -일 때
 		{
-			while(!postfix.empty() && postfix.top() != 40) // )가 아니면
+			if (postfix.empty())
+				postfix.push(s[i]);
+			else if (postfix.top() == 42 || postfix.top() == 47)
 			{
-				ans += postfix.top();
+				char tmpt = postfix.top();
 				postfix.pop();
-			}
-			postfix.push(s[i]);
+				postfix.push(s[i]);
+				postfix.push(tmpt);
+			}	
+			else
+				postfix.push(s[i]);
 		}
 		else if (s[i] == 42 || s[i] == 47) // * 또는 /일 때
 		{
-			if (postfix.empty() || postfix.top() == 43 || postfix.top() == 45)
-				postfix.push(s[i]);
-			else if(postfix.top() == 42 || postfix.top() == 47)
-			{
+			if (postfix.top() != 40)
 				ans += s[i];
-				ans += postfix.top();
-				postfix.pop();
-			}
-
+			else
+				postfix.push(s[i]);
 		}
 		else if (s[i] == 41)
 		{
