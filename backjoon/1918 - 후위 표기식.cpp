@@ -19,23 +19,20 @@ int main()
 			postfix.push(s[i]);
 		else if (s[i] == 43 || s[i] == 45) //+ 또는 -일 때
 		{
-			if (postfix.empty())
-				postfix.push(s[i]);
-			else if (postfix.top() == 42 || postfix.top() == 47)
+			while (!postfix.empty() && postfix.top() != 40)
 			{
-				char tmpt = postfix.top();
+				ans += postfix.top();
 				postfix.pop();
-				postfix.push(s[i]);
-				postfix.push(tmpt);
 			}
-			else
-				postfix.push(s[i]);
+			postfix.push(s[i]);
 		}
 		else if (s[i] == 42 || s[i] == 47) // * 또는 /일 때
 		{
-			if (postfix.top() != 40)
-				ans += s[i];
-			else
+				while (!postfix.empty() && (postfix.top() == 42 || postfix.top() == 47))
+				{
+					ans += postfix.top();
+					postfix.pop();
+				}
 				postfix.push(s[i]);
 		}
 		else if (s[i] == 41)
@@ -47,26 +44,13 @@ int main()
 			}
 			postfix.pop();
 		}
+	}
 
-		if (i == s.size() - 1)
-		{
-			while (!postfix.empty())
-			{
-				ans += postfix.top();
-				postfix.pop();
-			}
-		}
+	while (!postfix.empty())
+	{
+		ans += postfix.top();
+		postfix.pop();
 	}
 
 	cout << ans;
 }
-
-/*
-반례))
-
-input: A+((B*C)*D)*E
-output: ABC*D*+E*
-answer: ABC*D*E*+
-
-&& || 우선순위 생각해야
-*/
