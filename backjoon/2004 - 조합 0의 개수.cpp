@@ -5,6 +5,7 @@ using namespace std;
 int main()
 {
 //2와 5의 배수 세기
+//조합 정리
 	int n;
 	int m;
 
