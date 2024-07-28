@@ -418,3 +418,4 @@ x64/
 /backjoon/2798-블랙잭.cpp
 /backjoon/1463-1로 만들기.cpp
 /backjoon/10824 - 네 수.cpp
+*.json
